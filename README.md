@@ -28,7 +28,7 @@ Ip stop on target block, then press Shift-B:
 
 
 ## Warning
-Due to the select position may be just has been modified SP value or spd has been broken. So in rare cases, local variables identify may result in errors.You can press 'Ctrl+z' withdraw variables rename.  
+Due to the select position may be just has been modified SP value or spd has been broken. So in rare cases, local variables identify may result in errors.You can press 'Ctrl+Z' withdraw variables rename.  
 
 ## Support
 The plugin suport 7.4 between 9.x.  
