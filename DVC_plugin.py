@@ -242,28 +242,31 @@ def get_c_to_asm_mapping(func_ea):
 
 # create func for call insn
 def call_add_func():
-    func = ida_funcs.get_func(idc.get_screen_ea())
-    func_start = func.start_ea
-    func_end = func.end_ea
-    c_func = ida_hexrays.decompile(idc.get_screen_ea())
-    point = func_start        
-    while point <= func_end:
-        disasm = idc.GetDisasm(point)
-        # 'call    near ptr unk_5D5DACB'
-        if ';' in disasm:
-            disasm = disasm.split(';')[0].strip()
-        if 'call' in disasm and 'unk_' in disasm:
-            address = int(disasm.split(' ')[-1].strip()[4:], 16)
-            flag = ida_funcs.add_func(address)
-            if flag == True:
-                print(f'[DVC] decompile call insn at {hex(point)}')
-            else:
-                print(f'[DVC] fail decompile call insn at {hex(point)}')
-            
-        point = idc.next_head(point)
-
-    c_func.refresh_func_ctext()
-
+    try:
+        ea = idc.get_screen_ea()
+        func = ida_funcs.get_func(ea)
+        func_start = func.start_ea
+        func_end = func.end_ea
+        c_func = ida_hexrays.decompile(ea)
+        point = func_start        
+        while point <= func_end:
+            disasm = idc.GetDisasm(point)
+            # 'call    near ptr unk_5D5DACB'
+            if ';' in disasm:
+                disasm = disasm.split(';')[0].strip()
+            if 'call' in disasm and 'unk_' in disasm:
+                address = int(disasm.split(' ')[-1].strip()[4:], 16)
+                flag = ida_funcs.add_func(address)
+                if flag == True:
+                    print(f'[DVC] decompile call insn at {hex(point)}')
+                else:
+                    print(f'[DVC] fail decompile call insn at {hex(point)}')
+                
+            point = idc.next_head(point)
+    
+        c_func.refresh_func_ctext()
+    except Exception as e:
+        raise Exception(f"[DVC] Exception during decompilation at {hex(ea)}: {e}")
 
 class block_var_check(idaapi.action_handler_t):
     def __init__(self):
