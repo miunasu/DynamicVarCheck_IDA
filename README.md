@@ -17,7 +17,7 @@ Put cursors on the target function, then press Shift-F:
 ![](./picture/create_func_after.png)  
 
 ## Check local variables
-DVA can identify all dll handle and system api(you can add the key word to the global variable api_key_word).
+DVA can identify all dll handle and system api(you can add the key word to the global variable api_key_word).  
 
 There has two action range, current ip between block start and whole function.  
 * current ip between block start(recommend): Shift-B  
@@ -26,6 +26,11 @@ There has two action range, current ip between block start and whole function.
 Ip stop on target block, then press Shift-B:  
 ![](./picture/Identifying_variables.png)
 
+
+## Warning
+Due to the select position may be just has been modified SP value or spd has been broken. So in rare cases, local variables identify may result in errors.You can press 'Ctrl+z' withdraw variables rename.  
+
 ## Support
 The plugin suport 7.4 between 9.x.  
-If you have any question, please open an issue on GitHub.
+If you have any question, please open an issue on GitHub.  
+The plugin now has been integrated into the SUKI_IDA project(https://github.com/miunasu/SUKI_IDA).  
