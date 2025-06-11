@@ -116,11 +116,9 @@ class DVC:
     def rename(self, var_value, var):
 
         func_name = self.get_name(var_value)
-        if "sub_" in func_name:
-            func_name = None
         ret = True
         name_count = 1
-        if func_name != None:
+        if func_name != None and "sub_" not in func_name:
             ret = ida_hexrays.rename_lvar(self.func_start, var.name, func_name)
             func_name = func_name + '_'
             while ret == False:
